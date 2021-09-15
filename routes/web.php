@@ -24,6 +24,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/panel', function () {
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::prefix('admin')->group(function () {
         // https://laravel.com/docs/8.x/controllers
+        /*
+         * Route::get('quizzes/{id}', [QuizController::class, 'destroy])
+         *       ->whereNumber('id')
+         *       ->name('quizzes.destroy); 
+        */
         Route::resource('quizzes', QuizController::class);
     });
 });

@@ -32,10 +32,10 @@
                         </li>
                   </ul>
                   <div class="card-footer d-flex p-0 text-center bg-white">
-                        <a href="#" class="btn w-full rounded-0 btn-sm btn-warning">
+                        <a href="{{ route('quizzes.edit', $quiz->id) }}" class="btn w-full rounded-0 btn-sm btn-warning">
                               <i class="fas fa-edit mr-2"></i> {{ __('Edit') }}
                         </a>
-                        <a href="#" class="btn w-full rounded-0 btn-sm btn-danger">
+                        <a onclick="deleteQuiz('{{ route('quizzes.destroy', $quiz->id) }}', '{{ $quiz->id }}')" class="btn w-full rounded-0 btn-sm btn-danger">
                               <i class="fas fa-trash-alt mr-2"></i> {{ __('Remove') }}
                         </a>
                   </div>
@@ -55,4 +55,51 @@
     <div class="text-center mt-3 mb-3">
           {{  $quizzes->links() }}
     </div>
+
+    <x-slot name="script">
+      <script>
+             function deleteQuiz(route, id) {
+                  swal.fire({
+                        title: 'Siliniyor',
+                        text: 'Quiz Siliniyor, onaylıyor musun?',
+                        icon: 'question',
+                        showCancelButton: true,
+                        showCloseButton: true,
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-danger',
+                        confirmButtonText: 'Sil',
+                        cancelButtonText: 'Vazgeç',
+                        cancelButtonClass: 'btn btn-secondary'
+                  }).then((result) => {
+                        if (result.value) {
+                              $.ajax({
+                                    type:'DELETE',
+                                    url: route,
+                                    data: {
+                                          _token: '{{ csrf_token() }}'
+                                    },
+                                    dataType: "json",
+                                    success:function(data, status) {
+                                          Swal.fire({
+                                                icon: 'success',
+                                                title: 'Başarılı',
+                                                timer: 2000
+                                          }).then((result) => {
+                                                location.reload();
+                                          });
+                                    },
+                                    error:function(data, status) {
+                                          Swal.fire({
+                                                icon: 'error',
+                                                title: 'Başarısız',
+                                                timer: 2000
+                                          });
+                                    }
+                              });
+                        } // result value
+                  })
+             }
+      </script>
+</x-slot>
+
 </x-app-layout>
