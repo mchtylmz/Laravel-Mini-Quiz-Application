@@ -15,9 +15,6 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
         @livewireStyles
-
-        <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -37,4 +34,10 @@
 
         @livewireScripts
     </body>
+
+    <!-- Scripts -->
+    <script src="{{ mix('js/app.js') }}"></script>
+    @isset($script)
+    {{ $script }}
+    @endisset
 </html>

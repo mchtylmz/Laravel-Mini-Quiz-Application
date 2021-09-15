@@ -3,7 +3,11 @@
 
     <a type="button" class="btn btn-primary mb-3" href="{{ route('quizzes.create') }}">
          <i class="fas fa-plus"></i> {{ __('New Quiz') }}
-      </a>
+    </a>
+
+    @if (session('success'))
+    <x-alert type="success" message="{{ session('success') }}" />
+    @endif
 
     <div class="row align-items-start">
           @if ($quizzes)
@@ -11,8 +15,7 @@
           <div class="col-sm-6 col-lg-4">
             <div class="card mb-3">
                   <div class="card-body">
-                        <h5 class="card-title">{{ $quiz->title }}</h5>
-                        <p class="card-text">{{ $quiz->description }}</p>
+                        <h5 class="card-title mb-3">{{ $quiz->title }}</h5>
                   </div>
                   <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between">
@@ -29,7 +32,7 @@
                         </li>
                   </ul>
                   <div class="card-footer d-flex p-0 text-center bg-white">
-                        <a href="#" class="btn w-full rounded-0 btn-sm btn-primary">
+                        <a href="#" class="btn w-full rounded-0 btn-sm btn-warning">
                               <i class="fas fa-edit mr-2"></i> {{ __('Edit') }}
                         </a>
                         <a href="#" class="btn w-full rounded-0 btn-sm btn-danger">
@@ -40,7 +43,7 @@
           </div>
             @endforeach
           @else
-              <div class="col-md-12">
+              <div class="col-md-12 mt-3 mb-3">
                   <div class="alert alert-danger" role="alert">
                         {{ __('Quiz Not Found') }}
                   </div>
@@ -49,7 +52,7 @@
          
     </div>
 
-    <div class="text-center">
+    <div class="text-center mt-3 mb-3">
           {{  $quizzes->links() }}
     </div>
 </x-app-layout>
