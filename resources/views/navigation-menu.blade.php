@@ -6,10 +6,10 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
+                        <img class="h-12 rounded-full object-cover" src="{{ asset('storage/quizlogo.png') }}" alt="Logo"/>
                     </a>
                 </div>
-
+                
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
@@ -90,7 +90,17 @@
                             @endif
                         </x-slot>
 
-                        <x-slot name="content">
+                        <x-slot name="content"> 
+                        @if (auth()->user()->role == 'admin')
+                        <!-- Admin Management -->
+                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Admin Management') }}
+                            </div>
+                                <x-jet-dropdown-link href="{{ route('quizzes.index') }}">
+                                    {{ __('Quizzes') }}
+                                </x-jet-dropdown-link>
+                            @endif
+
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
@@ -159,6 +169,11 @@
             </div>
 
             <div class="mt-3 space-y-1">
+                @if (auth()->user()->role == 'admin')
+                                <x-jet-responsive-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('quizzes.index')">
+                                    {{ __('Quizzes') }}
+                                </x-jet-responsive-nav-link>
+                            @endif
                 <!-- Account Management -->
                 <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('Profile') }}
