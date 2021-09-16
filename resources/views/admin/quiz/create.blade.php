@@ -33,7 +33,7 @@
                   <div class="col-sm-6">
                         <div class="form-group mb-3">
                               <label for="sdate" class="form-label">{{ __('Quiz Started') }}</label>
-                              <input type="datetime-local" class="form-control" id="sdate" name="started_at" value="{{ old('started_at') }}" {{ old('started_at') ? '' : 'disabled required' }}>
+                              <input type="datetime-local" class="form-control" id="sdate" name="started_at" value="{{ old('started_at') }}" {{ old('started_at') ? '' : 'readonly required' }}>
                         </div>
                   </div>
             </div>
@@ -51,39 +51,17 @@
                   <div class="col-sm-6">
                         <div class="form-group mb-3">
                               <label for="edate" class="form-label">{{ __('Quiz Finished date') }}</label>
-                              <input type="datetime-local" class="form-control" id="edate" name="finished_at" value="{{ old('finished_at') }}" {{ old('started_at') ? '' : 'disabled required' }}>
+                              <input type="datetime-local" class="form-control" id="edate" name="finished_at" value="{{ old('finished_at') }}" {{ old('finished_at') ? '' : 'readonly required' }}>
                         </div>
                   </div>
             </div>
 
             <div class="d-grid gap-2">
-                  <button class="btn btn-primary" type="submit">
-                       <i class="fas fa-save mr-3"></i> {{ __('Create Quiz') }}
+                  <button class="btn btn-primary ld-over-inverse" type="submit">
+                       <i class="fas fa-save mr-3"></i> 
+                       {{ __('Create Quiz') }}
+                       <i class="fas fa-spinner fa-pulse ld"></i> 
                   </button>
             </div>
       </form>
-
-      <x-slot name="script">
-            <script>
-                   $('#isStarted').change(function() {
-                       $('#sdate').attr('readonly', 'readonly').removeAttr('required');
-                       if (this.value == 1) {
-                             $('#sdate').removeAttr('readonly').attr('required', 'required');
-                       }
-                       if (this.value == 0) {
-                             $('#sdate').val('');
-                       }
-                  });
-                  $('#isFinished').change(function() {
-                       $('#edate').attr('readonly', 'readonly').removeAttr('required');
-                       if (this.value == 1) {
-                             $('#edate').removeAttr('readonly').attr('required', 'required');
-                       }
-                       if (this.value == 0) {
-                             $('#sdate').val('');
-                       }
-                  });
-            </script>
-      </x-slot>
-
   </x-app-layout>

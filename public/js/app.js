@@ -5238,6 +5238,8 @@ window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
 
+__webpack_require__(/*! ./custom */ "./resources/js/custom.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -5268,6 +5270,91 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/custom.js":
+/*!********************************!*\
+  !*** ./resources/js/custom.js ***!
+  \********************************/
+/***/ (() => {
+
+$(function () {
+  $("form").on('submit', function (event) {
+    $(this).find('button[type=submit]').attr('disabled', 'disabled').toggleClass('running');
+  });
+
+  window.deleteConfirm = function (route, message) {
+    swal.fire({
+      title: 'Siliniyor',
+      text: message + ' siliniyor, onaylıyor musun?',
+      icon: 'question',
+      showCancelButton: true,
+      showCloseButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'Sil',
+      cancelButtonText: 'Vazgeç',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then(function (result) {
+      if (result.value) {
+        $.ajax({
+          type: 'DELETE',
+          url: route,
+          data: {
+            _token: $('meta[name="csrf-token"]').attr('content')
+          },
+          dataType: "json",
+          success: function success(data, status) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Başarılı',
+              timer: 1000,
+              showCancelButton: false,
+              showCloseButton: false,
+              showConfirmButton: false
+            }).then(function (result) {
+              location.reload();
+            });
+          },
+          error: function error(data, status) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Başarısız',
+              timer: 1000,
+              showCancelButton: false,
+              showCloseButton: false,
+              showConfirmButton: false
+            });
+          }
+        });
+      }
+    });
+  };
+
+  $('#isStarted').on('change', function () {
+    $('#sdate').attr('readonly', 'readonly').removeAttr('required');
+
+    if (this.value == 1) {
+      $('#sdate').removeAttr('readonly').attr('required', 'required');
+    }
+
+    if (this.value == 0) {
+      $('#sdate').val('');
+    }
+  });
+  $('#isFinished').on('change', function () {
+    $('#edate').attr('readonly', 'readonly').removeAttr('required');
+
+    if (this.value == 1) {
+      $('#edate').removeAttr('readonly').attr('required', 'required');
+    }
+
+    if (this.value == 0) {
+      $('#sdate').val('');
+    }
+  });
+});
 
 /***/ }),
 
