@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Symfony\Component\Console\Question\Question;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,7 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            QuizSeeder::class
+            QuizSeeder::class,
+            QuestionSeeder::class
         ]);
     }
 }

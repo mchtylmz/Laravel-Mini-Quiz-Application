@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Quiz;
 use App\Http\Requests\QuizCreateRequest;
 use App\Http\Requests\QuizUpdateRequest;
+use App\Models\Quiz;
 class QuizController extends Controller
 {
     /**

@@ -21,4 +21,9 @@ class Quiz extends Model
         'started_at', 
         'finished_at'
     ];
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
 }

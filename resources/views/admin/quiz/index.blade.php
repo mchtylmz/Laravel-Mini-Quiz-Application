@@ -1,9 +1,17 @@
 <x-app-layout>
     <x-slot name="header">{{ __('Quizzes') }}</x-slot>
 
-    <a type="button" class="btn btn-primary mb-3" href="{{ route('quizzes.create') }}">
-         <i class="fas fa-plus"></i> {{ __('New Quiz') }}
-    </a>
+    
+    <div class="row align-items-center mb-3">
+            <div class="col-sm-9">
+                  <h3 class="mb-0">{{ __('Quizzes') }}</h3>
+            </div>
+            <div class="col-sm-3 text-right">
+                  <a type="button" class="btn btn-primary mb-3" href="{{ route('quizzes.create') }}">
+                        <i class="fas fa-plus"></i> {{ __('New Quiz') }}
+                   </a>
+            </div>
+      </div>
 
     <x-session-message />
 
@@ -13,9 +21,13 @@
           <div class="col-sm-6 col-lg-4">
             <div class="card mb-3">
                   <div class="card-body">
-                        <h5 class="card-title mb-3">{{ $quiz->title }}</h5>
+                        <h5 class="card-title mb-1">{{ $quiz->title }}</h5>
                   </div>
                   <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between">
+                              <span>{{ __('Question Count') }}</span>
+                              <span>{{ $quiz->questions()->count() }}</span>
+                        </li>
                         <li class="list-group-item d-flex justify-content-between">
                               <span>{{ __('Status') }}</span>
                               <span>{{ $quiz->status }}</span>
@@ -30,6 +42,9 @@
                         </li>
                   </ul>
                   <div class="card-footer d-flex p-0 text-center bg-white">
+                        <a href="{{ route('questions.index', $quiz->id) }}" class="btn w-full rounded-0 btn-sm btn-primary">
+                              <i class="fas fa-question mr-2"></i> {{ __('Questions') }}
+                        </a>
                         <a href="{{ route('quizzes.edit', $quiz->id) }}" class="btn w-full rounded-0 btn-sm btn-warning">
                               <i class="fas fa-edit mr-2"></i> {{ __('Edit') }}
                         </a>
