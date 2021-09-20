@@ -19,9 +19,15 @@ class QuestionController extends Controller
     public function index($quiz_id)
     {
         $quiz = Quiz::find($quiz_id) ?? abort(404, 'Quiz Not Found');
+
+        $questions = $quiz->questions();
+        if ($filterSearch = request('q')) {
+            $questions->where('title', 'like', '%' . $filterSearch . '%');
+        }
+
         return view('admin.question.index', [
             'quiz'      => $quiz,
-            'questions' => $quiz->questions()->paginate(8)
+            'questions' => $questions->paginate(8)
         ]);
     }
 

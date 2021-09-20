@@ -63,7 +63,7 @@
                         <option value="">{{ __('Choose Answer') }}</option>
                         <option value="answer1"{{ old('correct') == 'answer1' ? 'selected':'' }}>{{ __('Answer 1') }}</option>
                         <option value="answer2"{{ old('correct') == 'answer2' ? 'selected':'' }}>{{ __('Answer 2') }}</option>
-                        <option value="answer"{{ old('correct') == 'answer3' ? 'selected':'' }}>{{ __('Answer 3') }}</option>
+                        <option value="answer3"{{ old('correct') == 'answer3' ? 'selected':'' }}>{{ __('Answer 3') }}</option>
                         <option value="answer4"{{ old('correct') == 'answer4' ? 'selected':'' }}>{{ __('Answer 4') }}</option>
                   </select>
             </div>

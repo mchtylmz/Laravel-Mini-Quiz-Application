@@ -1,5 +1,5 @@
 <x-app-layout>
-      <x-slot name="header">{{ __('New Question') }}</x-slot>
+      <x-slot name="header">{{ __('Edit Question') }}</x-slot>
       
       <a type="button" class="text-primary mb-2" href="{{ route('questions.store', $question->quiz_id) }}">
             <i class="fas fa-arrow-left mr-2"></i> {{ __('Questions') }}
@@ -30,7 +30,7 @@
                   <div class="col">
                         @if ($question->image)
                         <a href="{{ asset($question->image) }}" target="_blank" rel="noopener noreferrer">
-                              <img src="{{ asset($question->image) }}" class="border w-full" alt="{{ $question->title }}">
+                              <img onerror="this.src='{{ asset('uploads/noimage.png') }}'" src="{{ asset($question->image) }}" class="border w-full" alt="{{ $question->title }}">
                         </a>
                         @endif
                   </div>
@@ -75,7 +75,7 @@
                         <option value="">{{ __('Choose Answer') }}</option>
                         <option value="answer1"{{ (old('correct') ?? $question->correct) == 'answer1' ? 'selected':'' }}>{{ __('Answer 1') }}</option>
                         <option value="answer2"{{ (old('correct') ?? $question->correct) == 'answer2' ? 'selected':'' }}>{{ __('Answer 2') }}</option>
-                        <option value="answer"{{ (old('correct') ?? $question->correct) == 'answer3' ? 'selected':'' }}>{{ __('Answer 3') }}</option>
+                        <option value="answer3"{{ (old('correct') ?? $question->correct) == 'answer3' ? 'selected':'' }}>{{ __('Answer 3') }}</option>
                         <option value="answer4"{{ (old('correct') ?? $question->correct) == 'answer4' ? 'selected':'' }}>{{ __('Answer 4') }}</option>
                   </select>
             </div>

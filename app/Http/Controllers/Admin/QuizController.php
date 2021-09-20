@@ -16,8 +16,18 @@ class QuizController extends Controller
      */
     public function index()
     {
+        $quizzes = Quiz::withCount('questions');
+        
+        if ($filterStatus = request('status')) {
+            $quizzes->where('status', $filterStatus);
+        }
+
+        if ($filterSearch = request('q')) {
+            $quizzes->where('title', 'like', '%' . $filterSearch . '%');
+        }
+
         return view('admin.quiz.index', [
-            'quizzes' => Quiz::orderBy('id', 'DESC')->paginate(9)
+            'quizzes' => $quizzes->orderBy('id', 'DESC')->paginate(9)
         ]);
     }
 
@@ -62,7 +72,7 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        $quiz = Quiz::find($id) ?? abort(404, 'Quiz Not Found');
+        $quiz = Quiz::withCount('questions')->find($id) ?? abort(404, 'Quiz Not Found');
         return view('admin.quiz.edit', compact('quiz'));
     }
 

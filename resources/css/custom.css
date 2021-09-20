@@ -3,3 +3,6 @@
 a, p, li, span {
       text-decoration: none;
 }
+.badge {
+      padding: 0.5em 0.65em !important;
+}

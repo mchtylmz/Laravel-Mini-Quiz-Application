@@ -1,6 +1,10 @@
 <x-app-layout>
       <x-slot name="header">{{ __('Update Quiz') }}</x-slot>
       
+      <a type="button" class="text-primary mb-2" href="{{ route('quizzes.index') }}">
+            <i class="fas fa-arrow-left mr-2"></i> {{ __('Quizzes') }}
+      </a>
+
       @if ($errors->any())
           @foreach ($errors->all() as $error)
           <x-alert type="danger" message="{{ $error }}" />
@@ -57,15 +61,19 @@
                   </div>
             </div>
 
+           
             <div class="form-group mb-3">
                   <label for="edate" class="form-label">{{ __('Quiz Status') }}</label>
-                  <select class="form-select" name="status" required>
+                  <select class="form-select" name="status" {{ $quiz->questions_count <= 2 ? 'disabled':'required' }}>
                         <option value="">{{ __('Choose') }}</option>
                         <option value="active"{{ (old('status') ?? $quiz->status) == 'active' ? 'selected':'' }}>{{ __('Quiz Active') }}</option>
                         <option value="draft"{{ (old('status') ?? $quiz->status) == 'draft' ? 'selected':'' }}>{{ __('Quiz Draft') }}</option>
                         <option value="passive"{{ (old('passivez') ?? $quiz->status) == 'passive' ? 'selected':'' }}>{{ __('Quiz Passive') }}</option>
                   </select>
             </div>
+            @if ($quiz->questions_count <= 2)
+            <x-alert type="warning" message="{{ __('Question count not enough for quiz. Min 3 Question') }}" />
+            @endif
 
             <div class="d-grid gap-2 mt-3">
                   <button class="btn btn-primary ld-over-inverse" type="submit">

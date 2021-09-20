@@ -2,20 +2,52 @@
     <x-slot name="header">{{ __('Quizzes') }}</x-slot>
 
     
-    <div class="row align-items-center mb-3">
-            <div class="col-sm-9">
+    <div class="row align-items-center mb-4">
+            <div class="col">
                   <h3 class="mb-0">{{ __('Quizzes') }}</h3>
             </div>
-            <div class="col-sm-3 text-right">
-                  <a type="button" class="btn btn-primary mb-3" href="{{ route('quizzes.create') }}">
-                        <i class="fas fa-plus"></i> {{ __('New Quiz') }}
+            <div class="col-6 text-right">
+                  <a type="button" class="btn btn-primary mb-0" href="{{ route('quizzes.create') }}">
+                        <i class="fas fa-plus mr-2"></i> {{ __('New Quiz') }}
                    </a>
             </div>
       </div>
 
     <x-session-message />
 
-    <div class="row align-items-start">
+    <form action="" method="get">
+      <div class="row mb-3">
+            <div class="col-md-4">
+                  <div class="input-group mb-2">
+                        <label class="input-group-text" for="status">{{ __('Status') }}</label>
+                        <select class="form-select" name="status">
+                              <option value="">{{ __('Choose') }}</option>
+                              <option value="active"{{ request('status') == 'active' ? 'selected':'' }}>{{ __('Quiz Active') }}</option>
+                              <option value="draft"{{ request('status') == 'draft' ? 'selected':'' }}>{{ __('Quiz Draft') }}</option>
+                              <option value="passive"{{ request('status') == 'passive' ? 'selected':'' }}>{{ __('Quiz Passive') }}</option>
+                        </select>
+                      </div>
+            </div>
+            <div class="col-md-8">
+                  <div class="input-group mb-2">
+                        <label class="input-group-text" for="q">{{ __('Search') }}</label>
+                        <input type="text" class="form-control" name="q" placeholder="{{ __('Search quiz...') }}" value="{{ request('q') }}">
+                        <button type="submit" class="btn btn-primary">
+                              <i class="fas fa-search mr-2"></i> {{ __('Search') }}
+                        </button>
+                      </div>
+            </div>
+            @if (request()->all())
+            <div class="col text-right mt--3">
+                  <a class="text-danger mb-0" href="{{ route('quizzes.index') }}">
+                        <i class="fas fa-times mr-2"></i> {{ __('Clear Filter') }}
+                  </a>
+                </div>
+            @endif
+          </div>
+    </form>
+
+    <div class="row align-items-start mt-4">
           @if (count($quizzes))
           @foreach($quizzes as $quiz)
           <div class="col-sm-6 col-lg-4">
@@ -26,19 +58,32 @@
                   <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between">
                               <span>{{ __('Question Count') }}</span>
-                              <span>{{ $quiz->questions()->count() }}</span>
+                              <span>{{ $quiz->questions_count }}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                               <span>{{ __('Status') }}</span>
-                              <span>{{ $quiz->status }}</span>
+                              @switch($quiz->status)
+                                  @case('active')
+                                      <span class="badge bg-success">{{ $quiz->status }}</span>
+                                      @break
+                                  @case('passive')
+                                      <span class="badge bg-danger">{{ $quiz->status }}</span>
+                                      @break
+                                  @default
+                                    <span class="badge bg-warning text-dark">{{ $quiz->status }}</span>
+                              @endswitch
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                               <span>{{ __('Started Date') }}</span>
-                              <span>{{ $quiz->started_at }}</span>
+                              <span>
+                                    {{ $quiz->started_at ? $quiz->started_at->format('d/m/Y H:i'):'-' }}
+                              </span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                               <span>{{ __('Finished Date') }}</span> 
-                              <span>{{ $quiz->finished_at }}</span>
+                              <span>
+                                    {{ $quiz->finished_at ? $quiz->finished_at->format('d/m/Y H:i'):'-' }}
+                              </span>
                         </li>
                   </ul>
                   <div class="card-footer d-flex p-0 text-center bg-white">
@@ -64,7 +109,7 @@
     </div>
 
     <div class="text-center mt-3 mb-3">
-          {{  $quizzes->links() }}
+          {{  $quizzes->withQueryString()->links() }}
     </div>
 
 </x-app-layout>

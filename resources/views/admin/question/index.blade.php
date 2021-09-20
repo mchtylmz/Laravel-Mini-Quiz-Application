@@ -7,9 +7,9 @@
 
       <div class="row align-items-center mb-3">
             <div class="col">
-                  <h3 class="mb-0">{{ $quiz->title }}</h3>
+                  <h3 class="mb-3">{{ $quiz->title }}</h3>
             </div>
-            <div class="col-sm-3 text-right">
+            <div class="col-sm-4 text-right">
                   <a type="button" class="btn btn-primary mb-3" href="{{ route('questions.create', $quiz->id) }}">
                         <i class="fas fa-plus mr-2"></i> {{ __('New Question') }}
                    </a>
@@ -17,6 +17,25 @@
       </div>
   
       <x-session-message />
+
+      <form action="" method="get">
+            <div class="form-group mb-4">
+                  <div class="input-group">
+                        <label class="input-group-text" for="q">{{ __('Search') }}</label>
+                        <input type="text" class="form-control" name="q" placeholder="{{ __('Search question..') }}" value="{{ request('q') }}">
+                        <button type="submit" class="btn btn-primary">
+                              <i class="fas fa-search mr-2"></i> {{ __('Search') }}
+                        </button>
+                      </div>
+                      @if (request()->all())
+                      <div class="col text-right">
+                            <a class="text-danger mb-0" href="{{ route('questions.index', $quiz->id) }}">
+                                  <i class="fas fa-times mr-2"></i> {{ __('Clear Filter') }}
+                            </a>
+                          </div>
+                      @endif
+            </div>
+          </form>
 
       @if (count($questions))
       @foreach($questions as $key => $question)
@@ -77,8 +96,8 @@
     <x-alert type="danger" message="{{ __('Question Not Found') }}" />
     @endif
 
-    <div class="text-center mt-5 mb-5">
-      {{  $questions->links() }}
+    <div class="text-center mt-5 mb-5"wwwwww>
+      {{  $questions->withQueryString()->links() }}
 </div>
 
   </x-app-layout>
