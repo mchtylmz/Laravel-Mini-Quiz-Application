@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\QuestionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\QuizController;
+use App\Http\Controllers\HomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,9 +20,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/*
 Route::middleware(['auth:sanctum', 'verified'])->get('/panel', function () {
     return view('dashboard');
 })->name('dashboard');
+*/
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('panel', [HomeController::class, 'dashboard'])->name('dashboard');
+    Route::prefix('quiz/{slug}')->group(function () {
+        Route::get('', [HomeController::class, 'quiz'])->name('quiz');
+        Route::get('start', [HomeController::class, 'quizStart'])->name('quiz.start');
+    });
+});
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::prefix('admin')->group(function () {

@@ -17,6 +17,7 @@ class Quiz extends Migration
             $table->id();
             $table->string('title');
             $table->longText('description')->nullable();
+            $table->string('slug');
             $table->timestamp('started_at')->nullable();
             $table->timestamp('finished_at')->nullable();
             $table->enum('status', ['active', 'draft', 'passive'])->default('draft');
