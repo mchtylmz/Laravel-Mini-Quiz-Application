@@ -15,6 +15,14 @@
                                   <span>{{ __('Question Count') }}</span>
                                   <span>{{ $quiz->questions_count }}</span>
                             </li>
+                            @if ($quiz->started_at)
+                            <li class="list-group-item d-flex justify-content-between">
+                              <span>{{ __('Started Date') }}</span> 
+                              <span>
+                                    {{ $quiz->started_at->diffForHumans()}}
+                              </span>
+                            </li>
+                            @endif
                             <li class="list-group-item d-flex justify-content-between">
                                   <span>{{ __('Finished Date') }}</span> 
                                   <span>
@@ -23,8 +31,8 @@
                             </li>
                       </ul>
                       <div class="card-footer d-flex p-0 text-center bg-white">
-                            <a href="{{ route('quiz', $quiz->slug) }}" class="btn w-full rounded-0 btn-sm btn-primary">
-                                  <i class="fas fa-hourglass-start mr-2"></i> {{ __('Join Quiz') }}
+                            <a href="{{ route('quiz', $quiz->slug) }}" class="btn w-full rounded-0 btn-primary">
+                                  <i class="fas fa-feather mr-2"></i> {{ __('View Quiz') }}
                             </a>
                       </div>
                 </div>

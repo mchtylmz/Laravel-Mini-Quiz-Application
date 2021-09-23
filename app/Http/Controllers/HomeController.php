@@ -12,9 +12,6 @@ class HomeController extends Controller
     {
         $quizzes = Quiz::where('status', 'active')
                        ->where(function($query) {
-                        $query->orWhereNull('started_at')->orWhere('started_at', '<', date('Y-m-d H:i'));
-                       })
-                       ->where(function($query) {
                         $query->orWhereNull('finished_at')->orWhere('finished_at', '>', date('Y-m-d H:i'));
                        })
                        ->withCount('questions');

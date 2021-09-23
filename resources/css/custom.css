@@ -6,3 +6,7 @@ a, p, li, span {
 .badge {
       padding: 0.5em 0.65em !important;
 }
+.fa-slow {
+      -webkit-animation: fa-spin 5s infinite linear;
+      animation: fa-spin 5s infinite linear;
+}

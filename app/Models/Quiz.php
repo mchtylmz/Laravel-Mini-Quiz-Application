@@ -31,9 +31,19 @@ class Quiz extends Model
         return $date ? Carbon::parse($date):null;
     }
 
+    public function getIsStartedAttribute()
+    {
+        return $this->started_at ? $this->started_at->format('Y-m-d H:i') < date('Y-m-d H:i'):true; 
+    }
+
     public function getFinishedAtAttribute($date)
     {
         return $date ? Carbon::parse($date):null;
+    }
+
+    public function getIsFinishedAttribute()
+    {
+        return $this->finished_at ? date('Y-m-d H:i') > $this->finished_at->format('Y-m-d H:i'):false; 
     }
 
     public function questions()

@@ -37,10 +37,13 @@
                                           {{$quiz->started_at ? $quiz->started_at->format('d/m/Y H:i'):'-'}}
                                     </span>
                               </li>
-                              <li class="list-group-item d-flex justify-content-between">
+                              <li class="list-group-item d-flex align-items-center justify-content-between">
                                     <span>{{ __('Finished Date') }}</span> 
                                     <span>
                                           {{$quiz->finished_at ? $quiz->finished_at->format('d/m/Y H:i'):'-'}}
+                                          @if ($quiz->finished_at)
+                                          - {{ $quiz->finished_at->diffForHumans() }}
+                                          @endif
                                     </span>
                               </li>
                         </ul>
@@ -48,9 +51,15 @@
             </div>
       </div> 
       <div class="card-footer d-flex p-0 text-center bg-white">
-            <a href="{{ route('quiz', $quiz->slug) }}" class="btn w-full rounded-0 btn-success">
-                  <i class="fas fa-hourglass-start mr-2"></i> {{ __('Start Quiz') }}
-            </a>
+      @if ($quiz->is_started && !$quiz->is_finished)
+      <a href="{{ route('quiz', $quiz->slug) }}" class="btn w-full rounded-0 btn-success">
+            <i class="fas fa-paper-plane mr-2"></i> {{ __('Start Quiz') }}
+      </a>
+      @elseif (!$quiz->is_started && $quiz->started_at)
+      <a class="btn w-full rounded-0 btn-warning opacity-8" disabled>
+            <i class="fas fa-hourglass-start fa-pulse fa-slow mr-2"></i> {{ $quiz->started_at->diffForHumans() }}
+      </a>
+      @endif
       </div>
 </div>
     
