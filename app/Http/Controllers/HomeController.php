@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Quiz;
 
 class HomeController extends Controller
@@ -17,15 +16,7 @@ class HomeController extends Controller
                        ->withCount('questions');
 
         return view('dashboard', [
-            'quizzes' => $quizzes->orderBy('started_at', 'ASC')->paginate(9)
-        ]);
-    }
-
-
-    public function quiz($slug)
-    {
-        return view('quiz', [
-            'quiz' => Quiz::whereSlug($slug)->withCount('questions')->first() ?? abort(404, 'Quiz Not Found')
+            'quizzes' => $quizzes->latest()->paginate(9)
         ]);
     }
 }

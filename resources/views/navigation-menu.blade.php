@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                     @if (auth()->user()->role == 'admin')
-                    <x-jet-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('dashboard')">
+                    <x-jet-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('quizzes.index')">
                         {{ __('Quizzes') }}
                     </x-jet-nav-link>  
                     @endif

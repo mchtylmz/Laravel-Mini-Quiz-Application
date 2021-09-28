@@ -2,6 +2,25 @@ $(function() {
       $("form").on('submit', function(event){
            $(this).find('button[type=submit]').attr('disabled', 'disabled').toggleClass('running');
       });
+      $("form.quiz").on('submit', function(event){
+            event.preventDefault();
+            swal.fire({
+                  title: 'Kayıt edilsin mi?',
+                  text: 'Quiz bitirilecek ve cevaplar kayıt edilecek, cevaplar emin misiniz?',
+                  icon: 'question',
+                  showCancelButton: true,
+                  showCloseButton: true,
+                  buttonsStyling: false,
+                  confirmButtonClass: 'btn btn-success',
+                  confirmButtonText: 'Kaydet ve Bitir',
+                  cancelButtonText: 'Vazgeç',
+                  cancelButtonClass: 'btn btn-secondary'
+            }).then((result) => {
+                  if (result.value) {
+                        $("form.quiz").off("submit").submit();
+                  }
+            });
+       });
       window.deleteConfirm = function (route, message) {
             swal.fire({
                   title: 'Siliniyor',

@@ -1117,6 +1117,8 @@ video {
 	padding: 1.5rem;
 }.p-0{
 	padding: 0px;
+}.p-3{
+	padding: 0.75rem;
 }.px-4{
 	padding-left: 1rem;
 	padding-right: 1rem;
@@ -10670,6 +10672,15 @@ select {
 }.fa-slow {
       -webkit-animation: fa-spin 5s infinite linear;
       animation: fa-spin 5s infinite linear;
+}.btn-check:focus + .btn-outline-primary, 
+.btn-check:focus + .btn-outline-warning, 
+.btn-check:focus + .btn-outline-danger, 
+.btn-check:focus + .btn-outline-success {
+      box-shadow: 0 0 0 0 !important;
+}.question-image {
+      max-height: 360px;
+      -o-object-fit: contain;
+         object-fit: contain;
 }.hover\:border-gray-300:hover{
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));

@@ -1,6 +1,7 @@
 require('./bootstrap');
-
+require('bootstrap');
 require('jquery');
+require('@popperjs/core')
 import jquery from 'jquery';
 window.Jquery = jquery;
 window.$ = jquery;

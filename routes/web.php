@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\QuestionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\QuizController;
+use App\Http\Controllers\FrontendQuizController;
 use App\Http\Controllers\HomeController;
 
 /*
@@ -29,8 +30,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/panel', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('panel', [HomeController::class, 'dashboard'])->name('dashboard');
     Route::prefix('quiz/{slug}')->group(function () {
-        Route::get('', [HomeController::class, 'quiz'])->name('quiz');
-        Route::get('start', [HomeController::class, 'quizStart'])->name('quiz.start');
+        Route::get('', [FrontendQuizController::class, 'quiz'])->name('quiz');
+        Route::get('start', [FrontendQuizController::class, 'quizStart'])->name('quiz.start');
+        Route::post('save', [FrontendQuizController::class, 'quizSave'])->name('quiz.save');
     });
 });
 

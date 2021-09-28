@@ -10,3 +10,13 @@ a, p, li, span {
       -webkit-animation: fa-spin 5s infinite linear;
       animation: fa-spin 5s infinite linear;
 }
+.btn-check:focus + .btn-outline-primary, 
+.btn-check:focus + .btn-outline-warning, 
+.btn-check:focus + .btn-outline-danger, 
+.btn-check:focus + .btn-outline-success {
+      box-shadow: 0 0 0 0 !important;
+}
+.question-image {
+      max-height: 360px;
+      object-fit: contain;
+}

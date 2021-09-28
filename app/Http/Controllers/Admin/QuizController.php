@@ -27,7 +27,7 @@ class QuizController extends Controller
         }
 
         return view('admin.quiz.index', [
-            'quizzes' => $quizzes->orderBy('id', 'DESC')->paginate(9)
+            'quizzes' => $quizzes->latest()->paginate(9)
         ]);
     }
 
